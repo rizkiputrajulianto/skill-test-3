@@ -4,10 +4,6 @@
       <div class="card-header">
         <h2>SKILL TEST FRONTEND</h2>
         {{ add }}
-        <br />
-        {{ kananz }}
-        <br />
-        {{ kiriz }}
       </div>
       <div class="card-body">
         <div class="row">
@@ -60,20 +56,18 @@
 export default {
   data() {
     return {
-      kananz: this.$store.state.data.kanan,
-      kiriz: this.$store.state.data.kiri,
       add: [],
     };
   },
   computed: {
     kanan: {
       get() {
-        return this.kananz;
+        return this.$store.state.data.kanan;
       },
     },
     kiri: {
       get() {
-        return this.kiriz;
+        return this.$store.state.data.kiri;
       },
     },
   },
