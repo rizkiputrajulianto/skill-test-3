@@ -7,11 +7,9 @@ export const state = () => {
 
 export const actions = {
 	setKanan({ commit }, data) {
-		console.log('masuk kanan');
 		commit('pindahKanan', data);
 	},
 	setKiri({ commit }, data) {
-		console.log('masuk kiri');
 		commit('pindahKiri', data);
 	}
 };
@@ -19,20 +17,47 @@ export const actions = {
 export const mutations = {
 	pindahKanan(state, data) {
 		const payload = data;
+		state.kanan.forEach((x) => {
+			payload.forEach((y) => {
+				if (x === y) {
+					payload.splice(payload.indexOf(y), 1);
+				}
+			});
+		});
+		if (payload.length === 0) {
+			return true;
+		}
 		payload.forEach((element) => {
 			state.kanan.push(element);
 		});
-		const sisa = state.kiri.filter((item) => item !== payload);
-		console.log(sisa);
-		state.kiri = sisa;
+
+		payload.forEach((z) => {
+			state.kiri = state.kiri.filter((x) => x !== z);
+		});
+		state.kiri.sort();
+		state.kanan.sort();
 	},
 	pindahKiri(state, data) {
-		const payload = data;
-		payload.forEach((element) => {
-			state.kiri.push(element);
+		const payload = data; // data yang akan dipindahkan
+		state.kiri.forEach((x) => {
+			payload.forEach((y) => {
+				if (x === y) {
+					payload.splice(payload.indexOf(y), 1); // hapus data yang sama dari payload
+				}
+			});
 		});
-		const sisa = state.kanan.filter((item) => item !== payload);
-		console.log(sisa);
-		state.kanan = sisa;
+
+		if (payload.length === 0) {
+			return true; // jika payload kosong maka return true
+		}
+		payload.forEach((element) => {
+			state.kiri.push(element); // push data ke state kiri
+		});
+		// filter payload dan state kanan
+		payload.forEach((z) => {
+			state.kanan = state.kanan.filter((x) => x !== z);
+		});
+		state.kanan.sort();
+		state.kiri.sort();
 	}
 };

@@ -3,7 +3,6 @@
     <div class="card">
       <div class="card-header">
         <h2>SKILL TEST FRONTEND</h2>
-        {{ add }}
       </div>
       <div class="card-body">
         <div class="row">
@@ -77,15 +76,22 @@ export default {
     },
     removePayload(payload) {
       const dataz = this.add.filter((item) => item !== payload);
-      console.log(dataz);
       this.add = dataz;
     },
     kananPindah() {
       this.$store.dispatch("data/setKanan", this.add);
+      let checkOut = document.querySelectorAll("input");
+      checkOut.forEach((item) => {
+        item.checked = false;
+      });
       this.add = [];
     },
     kiriPindah() {
       this.$store.dispatch("data/setKiri", this.add);
+      let checkOut = document.querySelectorAll("input");
+      checkOut.forEach((item) => {
+        item.checked = false;
+      });
       this.add = [];
     },
   },
